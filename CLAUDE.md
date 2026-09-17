@@ -110,11 +110,7 @@ Lo más corto posible sin perder lo que necesita para decidir. Si algo no
 cambia su decisión, fuera. Nada de listar todo lo que investigaste ni de
 narrar el proceso.
 
-Formato por defecto de un reporte:
-1. **Qué pasa** — una o dos frases.
-2. **Por qué importa** — el impacto real.
-3. **Opciones** — con su coste y su consecuencia.
-4. **Tu recomendación** — una, con el motivo en una frase.
+La estructura la fija **§2.8**. Esta regla sólo dice cuánto cabe dentro.
 
 ### 2.4 Siempre opciones con escenarios, nunca preguntas abiertas
 Nunca le preguntes "¿qué hacemos?". Preséntale **2 o 3 caminos concretos**, y
@@ -160,6 +156,72 @@ barato de mantener o más rápido?" sí lo es.
 Tiempos, dinero, número de usuarios afectados, "esto es como…". Las analogías
 son buenas si son honestas. Los porcentajes y los plazos concretos le sirven;
 los nombres de tecnologías, no.
+
+### 2.8 La estructura fija de todo reporte
+
+**Todo** mensaje al director usa estas cinco secciones, **siempre en este
+orden y siempre con estos títulos**, aunque alguna diga "nada". La
+previsibilidad es el punto: él aprende dónde mirar y deja de tener que leerlo
+todo.
+
+```
+## 1. En una línea
+## 2. Lo que necesito de ti
+## 3. Estado del proyecto
+## 4. Qué cambió desde el último reporte
+## 5. Detalle
+```
+
+**1. En una línea.** Una sola frase: la situación. Si sólo lee esto, ¿qué
+tiene que saber? Nada más.
+
+**2. Lo que necesito de ti.** Lo primero que ve, porque es lo único que le
+pide trabajo. Dos bloques:
+- **Acciones tuyas** — lo que sólo él puede hacer (entrar a una cuenta, pagar,
+  hablar con alguien). Con el tiempo que le va a costar.
+- **Decisiones** — numeradas, con opciones en letras, cada una completa por sí
+  sola. Debe poder contestar **"1A, 2C"** sin volver a subir a leer.
+
+Las decisiones abiertas de reportes anteriores se repiten aquí hasta que las
+conteste. No se dan por olvidadas.
+
+**3. Estado del proyecto.** Una tabla, **siempre las mismas filas**, para que
+pueda compararla con la de la semana pasada. Tres columnas: qué es, cómo está,
+y qué significa en su idioma. La urgencia es un **color en la fila**, no una
+sección aparte.
+
+| Marca | Significa |
+|---|---|
+| 🔴 | roto o expuesto; cuesta dinero o usuarios ahora |
+| 🟠 | funciona, pero falso o frágil; va a doler pronto |
+| 🟡 | aceptable, con riesgo conocido |
+| 🟢 | bien; no tocar |
+| ❓ | no lo sé todavía, y necesito averiguarlo |
+
+**4. Qué cambió desde el último reporte.** Tres o cuatro viñetas. Qué
+descubriste, qué hiciste, qué se movió. Nada de narrar el proceso.
+
+**5. Detalle.** Todo lo demás, marcado explícitamente como **opcional**. Es el
+único sitio donde caben tablas largas, comparaciones y contexto. Si no lee esta
+sección, no se pierde ninguna decisión.
+
+### 2.9 Un solo criterio de orden por mensaje
+
+El error a evitar: ordenar el mensaje por urgencia, luego por tema, luego por
+si es buena o mala noticia, y luego por decisiones. Son cuatro criterios
+distintos en el mismo texto y el resultado es ilegible.
+
+**La estructura de §2.8 es el único criterio.** Todo lo demás es una propiedad
+*dentro* de una fila o de una decisión:
+- lo urgente no es una sección → es una fila 🔴 y una acción en §2;
+- lo que va bien no es una sección → son las filas 🟢 de la tabla;
+- un hallazgo nuevo no es una sección → cambia una fila y se menciona en §4.
+
+### 2.10 Nunca mezclar noticia y decisión
+
+Un párrafo, o informa, o pide. Nunca las dos cosas. Si al contarle un problema
+aparece una pregunta, el problema se queda en la tabla (§3) y la pregunta sube
+a §2 como decisión numerada.
 
 ---
 
