@@ -20,8 +20,9 @@ para gastar la cuota de Groq, **no versiona el esquema de su base de datos**, y
 Además, el 52% del código (≈20k de 38k líneas) es un parser de PDF escrito a
 mano donde existían librerías maduras.
 
-**Prioridad recomendada:** H-01 (seguridad/costo) → H-03 (build) →
-H-04 (404 en producción) → H-02 (migraciones) → H-06 (evaluación real).
+**Prioridad recomendada:** **H-00 (claves filtradas — hoy)** → H-01
+(seguridad/costo) → H-03 (build) → H-04 (404 en producción) → H-02
+(migraciones) → H-06 (evaluación real).
 
 ---
 
@@ -43,6 +44,46 @@ H-04 (404 en producción) → H-02 (migraciones) → H-06 (evaluación real).
 ---
 
 ## Hallazgos
+
+### 🚨 H-00 — Tres claves de API publicadas en internet (urgente)
+
+**Descubierto el 2026-09-18 al revisar el tablero de seguimiento.**
+
+La tarjeta **"API Keys"** del tablero público
+[🧮 Incubadora de proyectos](https://inscreup.notion.site/38ce78250e0880d39c33ec11ac0277c9)
+contiene, en texto plano, las credenciales de producción de tres servicios:
+
+| Servicio | Cuenta | Qué expone |
+|---|---|---|
+| Groq | arturoinscreup@gmail.com | clave de API (prefijo `gsk_S0Oro…`) |
+| Adzuna | inscreup@gmail.com | app id + app key |
+| Jooble | — | clave de API |
+
+*Los valores completos no se reproducen aquí a propósito: están en esa tarjeta.*
+
+El tablero es un **Notion Site público**: se lee sin iniciar sesión, sin
+invitación y sin permisos. Lo confirmé recuperando su contenido con una
+petición anónima al endpoint público `api/v3/loadPageChunk` de Notion. Los
+sitios públicos de Notion son indexables por buscadores.
+
+**Impacto:** esto deja sin efecto la mitigación propuesta en H-01. Cerrar las
+Edge Functions impide que alguien use *tu* backend, pero la clave de Groq
+publicada permite llamar a Groq **directamente**, saltándose por completo tu
+aplicación. El gasto se factura igual. Adzuna y Jooble quedan expuestas del
+mismo modo.
+
+**Corrección, en este orden:**
+1. **Revocar y regenerar las tres claves** en sus paneles respectivos. Esto
+   invalida cualquier copia que ya circule.
+2. Borrar la tarjeta, o dejar de publicar el tablero.
+3. Guardar las claves nuevas como secretos de Supabase y en un gestor de
+   contraseñas. Nunca en Notion, Slack, correo ni en el repositorio.
+4. Revisar el consumo histórico de las tres cuentas en busca de uso no
+   reconocido.
+
+Prioridad: **por encima de todo lo demás de este documento.**
+
+---
 
 ### 🔴 H-01 — Edge Functions públicas sin autenticación (crítico)
 
