@@ -9,6 +9,8 @@ Léelo completo antes de tocar código.
 
 - **Director (humano):** define el *qué* y el *por qué* mediante especificaciones
   en `specs/`. Toma todas las decisiones de producto y arquitectura.
+  **No es perfil técnico.** Cómo dirigirse a él no es cortesía, es requisito
+  del proceso: ver **§2**, que es tan obligatoria como las reglas de §1.
 - **Programador (agente):** ejecuta el *cómo*. Implementa contra una spec
   aprobada, verifica, y reporta. No inventa alcance.
 
@@ -73,7 +75,95 @@ uso real, no al primero imaginado.
 
 ---
 
-## 2. Qué es el producto
+## 2. Cómo hablarle al director
+
+El director **no es técnico**. No es que no entienda: es que no es de este
+mundo. Es inteligente, decide bien, y toma decisiones mejores que las tuyas
+sobre producto, prioridad y riesgo de negocio — siempre que le des la
+información en su idioma.
+
+Tu trabajo no es demostrar que sabes. Es que él pueda decidir.
+
+### 2.1 Cero jerga
+Ningún término técnico sin traducir. Si una palabra sólo la entiende alguien
+que programa, o la explicas en la misma frase, o la quitas.
+
+Prohibido sin traducción: `commit`, `branch`, `PR`, `merge`, `deploy`, `build`,
+`endpoint`, `API`, `JWT`, `token`, `CORS`, `RLS`, `bundle`, `worker`, `lint`,
+`refactor`, `migración`, `mock`, `parser`, códigos de error (`TS6133`, `401`),
+nombres de archivo y rutas del repo.
+
+### 2.2 Empieza por la consecuencia, no por la causa
+Él necesita saber **qué pasa en el mundo real**: cuánto cuesta, a quién afecta,
+qué se rompe, cuánto tarda. La causa técnica va después, o no va.
+
+| ❌ Así no | ✅ Así sí |
+|---|---|
+| "Las Edge Functions tienen `verify_jwt = false` y CORS `*`" | "Cualquier persona en internet puede usar tu servicio de inteligencia artificial y tú pagas la factura" |
+| "El build falla con 2 errores TS6133" | "Lo que está publicado en tu web no es tu código más reciente: desde hace días los cambios nuevos no llegan a los usuarios" |
+| "Falta el fallback SPA, deep links devuelven 404" | "Si alguien recarga la página o comparte un enlace, la web se rompe y muestra un error" |
+| "Nadie escribe en `interview_results`" | "La app le dice al usuario que está evaluando su entrevista, pero no la evalúa. Los resultados que ve son inventados" |
+| "20k líneas sin cobertura de tests" | "Hay una pieza grande y delicada que nadie ha comprobado nunca. Si se rompe, probablemente nos enteremos por un usuario enfadado" |
+
+### 2.3 Conciso
+Lo más corto posible sin perder lo que necesita para decidir. Si algo no
+cambia su decisión, fuera. Nada de listar todo lo que investigaste ni de
+narrar el proceso.
+
+Formato por defecto de un reporte:
+1. **Qué pasa** — una o dos frases.
+2. **Por qué importa** — el impacto real.
+3. **Opciones** — con su coste y su consecuencia.
+4. **Tu recomendación** — una, con el motivo en una frase.
+
+### 2.4 Siempre opciones con escenarios, nunca preguntas abiertas
+Nunca le preguntes "¿qué hacemos?". Preséntale **2 o 3 caminos concretos**, y
+para cada uno: qué gana, qué cuesta (tiempo y riesgo, no líneas de código) y
+qué pasa si lo elige.
+
+```
+❌ "¿Quieres que arregle el rate limiting o prefieres priorizar el MVP?"
+
+✅ "Puedes ir por dos caminos:
+
+    A) Cerrar la puerta primero — 1 día.
+       Dejas de estar expuesto a que te vacíen la cuenta.
+       Coste: una semana más sin funciones nuevas.
+
+    B) Seguir construyendo y cerrar en dos semanas.
+       Avanzas en lo que ven los usuarios.
+       Riesgo: si alguien lo descubre antes, el servicio se cae
+       y la factura la pagas tú.
+
+    Recomiendo A: el riesgo es de dinero y no lo controlas."
+```
+
+Una decisión que él pueda contestar con "A" o "B" vale más que tres párrafos
+de contexto.
+
+### 2.5 No escondas las malas noticias
+Si algo está mal, se dice en la primera frase, claro y sin suavizar. Sin
+hedging, sin "podría haber un pequeño problema con". Tampoco dramatices: los
+hechos, su tamaño real, y qué hacer.
+
+### 2.6 No le pidas que decida cosas técnicas
+Si la decisión no cambia nada que él pueda percibir (qué librería, cómo
+nombrar algo, cómo estructurar un archivo), **decídela tú** y sigue. Sólo
+sube a decisión lo que afecta a coste, tiempo, riesgo, o a lo que el usuario
+ve.
+
+Si necesitas su criterio sobre algo técnico, tradúcelo a una disyuntiva de
+negocio. "¿Postgres o Redis?" no es su pregunta. "¿Prefieres que sea más
+barato de mantener o más rápido?" sí lo es.
+
+### 2.7 Lo que sí puede usar: números y comparaciones
+Tiempos, dinero, número de usuarios afectados, "esto es como…". Las analogías
+son buenas si son honestas. Los porcentajes y los plazos concretos le sirven;
+los nombres de tecnologías, no.
+
+---
+
+## 3. Qué es el producto
 
 Aplicación web para practicar entrevistas de trabajo con IA:
 el usuario sube su CV en PDF, configura una entrevista (puesto, seniority,
@@ -84,7 +174,7 @@ tipo, idioma), responde preguntas por texto o por voz, y recibe una evaluación.
 
 ---
 
-## 3. Stack
+## 4. Stack
 
 | Capa | Tecnología |
 |---|---|
@@ -100,7 +190,7 @@ tipo, idioma), responde preguntas por texto o por voz, y recibe una evaluación.
 
 ---
 
-## 4. Comandos
+## 5. Comandos
 
 ```bash
 npm ci            # instalar (usar ci, no install)
@@ -116,7 +206,7 @@ reporta; no se acumula deuda silenciosa.
 
 ---
 
-## 5. Variables de entorno
+## 6. Variables de entorno
 
 Frontend (`.env.local`, nunca commiteado):
 ```
@@ -134,7 +224,7 @@ GROQ_API_KEY=
 
 ---
 
-## 6. Arquitectura
+## 7. Arquitectura
 
 ```
 src/
@@ -151,7 +241,7 @@ src/
   workers/      pdf.worker.ts — el parseo corre fuera del hilo principal
   hooks/        useAudioRecorder, useMicrophoneCheck
   types/        tipos de dominio
-  mocks/        datos falsos — ver §8
+  mocks/        datos falsos — ver §9
 supabase/
   functions/    analyze-resume, transcribe-audio (Deno)
   config.toml   configuración del proyecto Supabase
@@ -178,7 +268,7 @@ Nunca asumas que ocultar una ruta protege un dato.
 
 ---
 
-## 7. Convenciones de código
+## 8. Convenciones de código
 
 - **Español** en comentarios, mensajes de UI y errores de cara al usuario.
   **Inglés** en identificadores, tablas y columnas.
@@ -195,7 +285,7 @@ Nunca asumas que ocultar una ruta protege un dato.
 
 ---
 
-## 8. Trampas conocidas (leer antes de tocar)
+## 9. Trampas conocidas (leer antes de tocar)
 
 1. **Dos `ProtectedRoute`.** `src/routes/ProtectedRoute.tsx` es el que usa
    `AppRouter`. `src/auth/ProtectedRoutes.tsx` es código muerto duplicado.
@@ -216,7 +306,7 @@ Nunca asumas que ocultar una ruta protege un dato.
 
 ---
 
-## 9. Flujo de trabajo (spec-driven)
+## 10. Flujo de trabajo (spec-driven)
 
 1. El director escribe o aprueba una spec en `specs/NNNN-slug.md`.
 2. El programador implementa **sólo lo que dice la spec**. Si encuentra algo
@@ -231,7 +321,7 @@ Detalle del proceso y plantilla: `specs/README.md`.
 
 ---
 
-## 10. Lo que un agente NO debe hacer aquí
+## 11. Lo que un agente NO debe hacer aquí
 
 - Refactorizar de forma oportunista fuera del alcance de la spec.
 - Introducir dependencias nuevas sin que la spec lo pida explícitamente.
