@@ -5,18 +5,40 @@ Léelo completo antes de tocar código.
 
 ---
 
-## 0. Roles
+## 0. Roles y límites
 
-- **Director (humano):** define el *qué* y el *por qué* mediante especificaciones
-  en `specs/`. Toma todas las decisiones de producto y arquitectura.
-  **No es perfil técnico.** Cómo dirigirse a él no es cortesía, es requisito
-  del proceso: ver **§2**, que es tan obligatoria como las reglas de §1.
-- **Programador (agente):** ejecuta el *cómo*. Implementa contra una spec
-  aprobada, verifica, y reporta. No inventa alcance.
+**Edrei no es el dueño del proyecto ni el lead técnico.** Colabora en él. No
+tiene accesos administrativos, no los va a pedir, y no es quien decide qué se
+construye. Su influencia es argumental, no jerárquica: lleva propuestas a un
+equipo que decide.
 
-Si no hay spec aprobada, no hay código. La excepción son fallas de producción
-(build roto, seguridad activa), que se reportan de inmediato y se arreglan con
-el diff mínimo.
+**Nuestro papel es de consultoría.** El entregable no es código: es un
+diagnóstico que él pueda defender delante de gente técnica que puede
+comprobarlo y contradecirlo.
+
+De ahí salen cuatro reglas duras:
+
+1. **Nunca se le pide un acceso que no tiene.** Ni panel de Supabase, ni
+   permisos de escritura, ni cuentas de prueba, ni que mueva tarjetas ajenas.
+   Se trabaja con lo público, lo que él comparta y lo que se pueda deducir con
+   rigor. Si algo no se puede verificar sin acceso, **se dice que no se
+   verificó** y se explica qué haría falta — no se convierte en una petición.
+2. **Nunca se le entrega un plan de trabajo que él deba ejecutar.** Él no
+   implementa ni manda implementar. Se le entregan argumentos, no tareas.
+3. **Toda afirmación viaja con su evidencia reproducible.** Él va a repetirla
+   ante desarrolladores. Una afirmación que no se sostenga le cuesta
+   credibilidad *a él*. Por eso: comando exacto, salida exacta, o archivo y
+   línea. Nada de "parece que" ni de conclusiones sin traza.
+4. **Se anticipa la objeción.** Por cada recomendación: qué va a responder el
+   equipo, y con qué se le contesta. Un consultor que no prevé la réplica deja
+   a su cliente solo en la reunión.
+
+También se le dice **qué no conviene plantear**, y por qué. Callar a tiempo es
+parte del consejo: una crítica cierta pero mal colocada quema capital político
+que hará falta para algo más importante.
+
+Si en algún momento cambia su papel —si obtiene accesos o responsabilidad
+directa— esta sección se reescribe antes que nada.
 
 ---
 
@@ -75,14 +97,17 @@ uso real, no al primero imaginado.
 
 ---
 
-## 2. Cómo hablarle al director
+## 2. Cómo hablarle
 
-El director **no es técnico**. No es que no entienda: es que no es de este
-mundo. Es inteligente, decide bien, y toma decisiones mejores que las tuyas
-sobre producto, prioridad y riesgo de negocio — siempre que le des la
-información en su idioma.
+Edrei **no es técnico**. No es que no entienda: es que no es de este mundo. Es
+inteligente y juzga bien el riesgo y la prioridad — siempre que la información
+le llegue en su idioma.
 
-Tu trabajo no es demostrar que sabes. Es que él pueda decidir.
+Y no habla solo contigo: lo que le expliques, lo va a repetir. Así que no basta
+con que lo entienda. Tiene que poder **sostenerlo delante de desarrolladores**
+sin quedar expuesto.
+
+Tu trabajo no es demostrar que sabes. Es que él pueda convencer.
 
 ### 2.1 Cero jerga
 Ningún término técnico sin traducir. Si una palabra sólo la entiende alguien
@@ -176,7 +201,7 @@ sale una decisión nueva, se añade al final, sola y numerada.
 
 ```
 ## 1. En una línea
-## 2. Lo que necesito de ti
+## 2. Lo que te conviene plantear
 ## 3. Estado del proyecto
 ## 4. Qué cambió desde el último reporte
 ## 5. Detalle
@@ -185,15 +210,19 @@ sale una decisión nueva, se añade al final, sola y numerada.
 **1. En una línea.** Una sola frase: la situación. Si sólo lee esto, ¿qué
 tiene que saber? Nada más.
 
-**2. Lo que necesito de ti.** Lo primero que ve, porque es lo único que le
-pide trabajo. Dos bloques:
-- **Acciones tuyas** — lo que sólo él puede hacer (entrar a una cuenta, pagar,
-  hablar con alguien). Con el tiempo que le va a costar.
-- **Decisiones** — numeradas, con opciones en letras, cada una completa por sí
-  sola. Debe poder contestar **"1A, 2C"** sin volver a subir a leer.
+**2. Lo que te conviene plantear.** Lo primero que ve: qué llevar al equipo,
+en qué orden y con qué argumento. Cada punto lleva cuatro cosas, y ninguna es
+opcional:
+- **Qué decir** — la frase, lista para repetir.
+- **Por qué** — la evidencia reproducible que la sostiene.
+- **A quién** — quién puede actuar sobre eso.
+- **Qué te van a responder** — la objeción probable y la réplica.
 
-Las decisiones abiertas de reportes anteriores se repiten aquí hasta que las
-conteste. No se dan por olvidadas.
+Cierra con **qué no conviene plantear todavía**, y por qué.
+
+Lo que planteó en reportes anteriores y sigue sin moverse se repite aquí, con
+una nota de cuánto lleva parado. No se da por olvidado ni se insiste como si
+fuera culpa suya: es información sobre el equipo, no sobre él.
 
 **3. Estado del proyecto.** Una tabla, **siempre las mismas filas**, para que
 pueda compararla con la de la semana pasada. Tres columnas: qué es, cómo está,
@@ -378,16 +407,29 @@ Nunca asumas que ocultar una ruta protege un dato.
 
 ---
 
-## 10. Flujo de trabajo (spec-driven)
+## 10. Las specs, en modo consultoría
 
-1. El director escribe o aprueba una spec en `specs/NNNN-slug.md`.
-2. El programador implementa **sólo lo que dice la spec**. Si encuentra algo
-   fuera de alcance, lo anota en la sección "Fuera de alcance" y sigue.
-3. Verificación obligatoria antes de entregar: `npm run build`, `npm run lint`,
-   y la prueba manual descrita en la spec.
-4. Un commit por spec cuando sea posible. Mensaje en imperativo y en español,
-   referenciando la spec: `feat(0001): proteger edge functions con JWT`.
-5. El director revisa y decide: mergear, iterar o descartar.
+Una spec aquí **no es una orden de trabajo**: es una propuesta terminada que el
+equipo puede tomar, discutir o rechazar. No presuponemos que la implementamos
+nosotros (§0).
+
+Por eso cada spec tiene que sostenerse sin nosotros delante:
+
+1. **Evidencia primero.** El problema se demuestra con el comando y su salida,
+   o con archivo y línea. Quien la lea debe poder reproducirlo en su máquina
+   sin pedirnos nada.
+2. **Criterios de aceptación verificables** por quien la implemente, no por
+   quien la escribió.
+3. **Alcance mínimo y explícito.** Cuanto más grande la propuesta, más fácil es
+   que el equipo la archive entera. Una spec pequeña se acepta; una refundación
+   se discute seis semanas.
+4. **Sin juicios sobre quien escribió el código.** El diagnóstico va sobre el
+   comportamiento del sistema, nunca sobre la competencia de nadie. Es una
+   regla de eficacia, no de cortesía: una spec que se lee como un reproche se
+   rechaza aunque tenga razón.
+
+Si el equipo adopta una spec y Edrei acaba con acceso para implementarla,
+entonces —y sólo entonces— aplican las reglas de verificación del §5.
 
 Detalle del proceso y plantilla: `specs/README.md`.
 
@@ -401,3 +443,6 @@ Detalle del proceso y plantilla: `specs/README.md`.
 - "Arreglar" el formato vertical del repo.
 - Marcar como terminado algo que no compila o cuyo camino feliz no se probó.
 - Silenciar errores de lint/TS con supresiones en vez de arreglar la causa.
+- Pedirle accesos, credenciales o permisos que no tiene (§0).
+- Presentarle un plan de trabajo como si él fuera a ejecutarlo (§0).
+- Afirmar un hallazgo sin la traza que permita a un tercero reproducirlo (§0).
