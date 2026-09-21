@@ -273,6 +273,46 @@ tipo, idioma), responde preguntas por texto o por voz, y recibe una evaluación.
 **Producción:** https://entrevist-ia.netlify.app/
 **Repo original:** https://github.com/TheIns07/entrevist-ia
 
+### 3.1 Etapa: MVP en una incubadora
+
+Esto es un **MVP dentro de CREA**, construido para validar un concepto rápido.
+No es un sistema en producción con usuarios que dependan de él, y tratarlo como
+tal produce consejos correctos e inútiles.
+
+**El criterio que decide si algo es un problema no es "¿está bien hecho?".
+Es:**
+
+> ¿Esto **frena el aprendizaje**, **cuesta dinero**, o **quema credibilidad en
+> una demo**?
+
+Si no cae en ninguna de las tres, **no es un hallazgo**: es una observación
+para más adelante, y mencionarla resta.
+
+**Sí cuenta como problema en esta etapa:**
+- Cualquier cosa que haga que lo desplegado no sea lo último construido. Un
+  equipo que no puede iterar rápido no tiene MVP, tiene un prototipo congelado.
+- Cualquier cosa que cueste dinero real sin dar información a cambio.
+- Cualquier cosa que rompa el bucle de "mando el link → me dan feedback".
+- No poder medir qué hacen los usuarios. En un MVP la medición **es** la
+  funcionalidad: sin ella no se está validando nada, sólo construyendo.
+
+**NO cuenta como problema en esta etapa** (y decirlo daña la credibilidad de
+quien lo dice):
+- Datos simulados en las partes caras del flujo. Es la técnica correcta: se
+  simula lo costoso hasta saber si a alguien le importa.
+- Falta de pruebas automáticas y de integración continua, más allá de una
+  comprobación mínima de que compila.
+- Falta de control de consumo por usuario, límites de uso o tableros de costes,
+  mientras no haya usuarios reales.
+- Esquema de base de datos sin versionar, mientras el esquema siga cambiando
+  cada semana. Basta con una copia de seguridad.
+- Arquitectura no ideal, código duplicado, deuda técnica conocida.
+
+**Aplica a la escala de gravedad de §2.8:** 🔴 se reserva para lo que frena,
+cuesta o quema *hoy*. Lo que sólo sería grave con miles de usuarios es 🟡 o no
+se reporta. Una lista de quince hallazgos en un MVP es señal de que se aplicó
+el criterio equivocado.
+
 ---
 
 ## 4. Stack
