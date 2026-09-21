@@ -103,57 +103,99 @@ el director decide.
 
 ## Decisiones pendientes del director
 
-Bloquean o condicionan specs futuras. No las resuelve el programador.
+Lista única y vigente. Sustituye a cualquier numeración anterior (D-1…D-4 y
+las numeradas en conversación). Se mantiene aquí hasta que cada una se
+conteste; al contestarse se anota la respuesta y la fecha.
 
-### D-1 — Formato vertical del código
-El repo usa un formato de casi un token por línea. Es la causa de que haya
-~38k líneas donde cabrían ~12-15k. Es consistente, así que **es una convención,
-no un accidente**.
+### A. Seguridad y riesgo
 
-- **(a)** Se mantiene. Se documenta y se respeta en todo código nuevo.
-- **(b)** Se adopta Prettier con configuración estándar y se reformatea todo en
-  un único commit aislado, marcado en `.git-blame-ignore-revs`.
+**1 — Revisión de las reglas de acceso a los datos**
+Las políticas que impiden que un usuario lea las entrevistas de otro viven
+sólo en el panel de Supabase. No están en el repo y no he podido revisarlas.
+- **(a)** Acceso al panel; reviso esas reglas. ~medio día.
+- **(b)** Además, ataque deliberado a la aplicación buscando fallos reales.
+  ~2 días.
 
-*Recomendación del programador: (b).* El costo es un commit ruidoso de una vez;
-el beneficio es que cada diff posterior se revisa en una pantalla en vez de
-cinco. Dado que la regla 1.1 (correa corta) dice que el cuello de botella es la
-verificación, el formato actual trabaja directamente en contra del proceso que
-estamos montando.
+*Recomendación: (a) ahora, (b) cuando las claves estén rotadas y las funciones
+cerradas.* Buscar fallos sofisticados mientras las credenciales están
+publicadas es perder el tiempo.
 
-### D-2 — Futuro del motor PDF (`src/lib/pdf-engine/`)
-20 000 líneas propias, sin pruebas, para obtener texto plano de un CV.
+**2 — Grabación de sesiones de usuario (Clarity)**
+El equipo va a instalar Clarity. En esta aplicación puede capturar contenido
+de CV y respuestas de entrevista: datos personales reales.
+- **(a)** Con las zonas sensibles enmascaradas. ~medio día extra.
+- **(b)** Instalación directa, sin enmascarar.
 
-- **(a)** Se queda como está. Requiere spec de pruebas urgente.
-- **(b)** Se sustituye por `pdf.js` y se conserva sólo la capa de limpieza y
-  detección de secciones de CV, que sí es específica del dominio.
-- **(c)** Se queda, pero congelado: no se le añaden funcionalidades y se le
-  pone una red de pruebas antes de tocarlo.
+*Recomendación: (a).* `PrivacyPage` ya promete informar al usuario de todo
+seguimiento; (b) incumpliría esa promesa por escrito.
 
-*Recomendación del programador: (c) ahora, evaluar (b) después.* Funciona y
-está desplegado; cambiarlo hoy es riesgo sin beneficio para el usuario. Pero
-sin pruebas es una bomba de relojería, y es la única pieza del repo donde una
-regresión es difícil de detectar a simple vista.
+### B. Qué construimos
 
-### D-3 — Alcance del MVP honesto
-Hoy la app promete una evaluación con IA que no existe (H-06).
+**3 — Orden de trabajo inmediato**
+- **(a)** Arreglar lo roto: build de `main`, fallback SPA y cierre de las Edge
+  Functions. ~1 día y medio. Visible para el usuario.
+- **(b)** Sincronizar el tablero de Notion con la realidad. ~medio día. No
+  avanza el producto.
+- **(c)** (a) y luego (b).
 
-- **(a)** Implementar la evaluación real ya (spec 0006), es la prioridad de
-  producto.
-- **(b)** Mientras tanto, dejar de prometerla: quitar los pasos falsos de
-  `ProcessingPage` y marcar los resultados como demostración.
+*Recomendación: (c).*
 
-*Recomendación del programador: (b) esta semana y (a) como siguiente hito.*
-Ninguna de las dos es gratis, pero mostrar "Evaluando tus fortalezas" mientras
-no se evalúa nada es el tipo de cosa que cuesta la confianza del usuario una
-sola vez.
+**4 — La aplicación promete una evaluación que no existe** (H-06)
+- **(a)** Implementar la evaluación real. ~1 semana.
+- **(b)** Retirar la promesa: quitar los pasos falsos de `ProcessingPage` y
+  marcar los resultados como demostración. ~2 horas.
+- **(c)** (b) esta semana, (a) la siguiente.
 
-### D-4 — Dónde vive este trabajo
-Esta sesión sólo tiene acceso de **lectura** a `TheIns07/entrevist-ia`, así que
-`CLAUDE.md`, `docs/` y `specs/` están en `edreirbs/entrevista`.
+*Recomendación: (c).*
 
-- **(a)** Se abre un PR a `TheIns07/entrevist-ia` para llevarlos al repo real
-  (es donde deberían vivir para que sirvan a todo el equipo).
-- **(b)** Se quedan aquí como espacio de trabajo personal del director.
+**5 — Futuro del motor PDF** (H-10)
+- **(a)** Se queda como está.
+- **(b)** Se sustituye por `pdf.js`, conservando sólo la capa de limpieza y
+  detección de secciones de CV. ~4 días.
+- **(c)** Se congela y se le añaden pruebas antes de tocarlo. ~2 días.
 
-*Recomendación del programador: (a).* Un `CLAUDE.md` fuera del repo que
-describe no gobierna a nadie más.
+*Recomendación: (c) ahora, evaluar (b) después.*
+
+### C. Cómo trabajamos
+
+**6 — Acceso de escritura a `TheIns07/entrevist-ia`**
+`CLAUDE.md`, `docs/` y `specs/` viven en `edreirbs/entrevista` porque esta
+sesión sólo tiene lectura sobre el repo real.
+- **(a)** Se concede acceso y se abre un PR para llevarlos allí.
+- **(b)** Se quedan como espacio de trabajo personal del director.
+
+*Recomendación: (a).* Un `CLAUDE.md` fuera del repo no gobierna a nadie.
+
+**7 — Cuenta de prueba para verificar el fallo en móvil**
+Las pantallas públicas están verificadas y correctas. El resto exige sesión.
+- **(a)** Cuenta de prueba con acceso completo al flujo.
+- **(b)** Grabación de pantalla del fallo hecha por el equipo.
+
+*Recomendación: (a).*
+
+---
+
+## Preguntas de hecho (no son decisiones)
+
+**P1 — ¿Existe el buscador de empleos?**
+La tarjeta "Scrapper" del tablero describe un buscador de empleos en
+funcionamiento (perfiles guardados, `preScore`/`matchScore`, proveedor
+Adzuna). Ese código **no existe** en `TheIns07/entrevist-ia`: el repo tiene una
+sola rama y ninguna referencia a Adzuna, Jooble ni `job_search`.
+Si vive en otro repositorio, hay que auditarlo: usa las mismas claves
+filtradas en H-00.
+
+---
+
+## Decisiones que toma el programador
+
+Por §2.6 de `CLAUDE.md`, lo que el director no puede percibir no sube a
+decisión suya.
+
+**Formato vertical del código** (antes D-1). El repo escribe casi un token por
+línea, lo que infla ~38k líneas a partir de unas ~13k reales. **Decisión
+tomada: se mantiene por ahora.** Cambiarlo produce un commit que toca todos los
+archivos y destruye el historial de `git blame` justo cuando estamos entrando
+al proyecto. Se revisará cuando exista CI (spec 0005) y la propuesta se hará
+por escrito, no unilateralmente. El coste —diffs más largos de revisar— se
+asume conscientemente.
