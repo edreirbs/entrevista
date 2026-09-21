@@ -159,10 +159,20 @@ los nombres de tecnologías, no.
 
 ### 2.8 La estructura fija de todo reporte
 
-**Todo** mensaje al director usa estas cinco secciones, **siempre en este
+Todo **informe** al director usa estas cinco secciones, **siempre en este
 orden y siempre con estos títulos**, aunque alguna diga "nada". La
 previsibilidad es el punto: él aprende dónde mirar y deja de tener que leerlo
 todo.
+
+Un informe es: una entrega, un avance, un hallazgo, el resultado de una
+investigación — cualquier mensaje que le pida decidir o que cambie el estado
+del proyecto.
+
+**Una pregunta directa no es un informe.** Si el director pregunta algo
+—qué significa una palabra, por qué hiciste algo, cuánto tarda esto—, se le
+contesta directo y corto, sin estructura. Envolver una respuesta de dos
+frases en cinco secciones es ruido, y contradice §2.3. Si de la respuesta
+sale una decisión nueva, se añade al final, sola y numerada.
 
 ```
 ## 1. En una línea
