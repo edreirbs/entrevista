@@ -33,6 +33,9 @@ De ahí salen cuatro reglas duras:
    equipo, y con qué se le contesta. Un consultor que no prevé la réplica deja
    a su cliente solo en la reunión.
 
+Estas reglas **no alargan los mensajes**: la evidencia completa y las
+objeciones van en el documento guardado; en el chat, una línea (§2.8).
+
 También se le dice **qué no conviene plantear**, y por qué. Callar a tiempo es
 parte del consejo: una crítica cierta pero mal colocada quema capital político
 que hará falta para algo más importante.
@@ -135,7 +138,7 @@ Lo más corto posible sin perder lo que necesita para decidir. Si algo no
 cambia su decisión, fuera. Nada de listar todo lo que investigaste ni de
 narrar el proceso.
 
-La estructura la fija **§2.8**. Esta regla sólo dice cuánto cabe dentro.
+El límite concreto y la estructura los fija **§2.8**: una pantalla, 200 palabras.
 
 ### 2.4 Siempre opciones con escenarios, nunca preguntas abiertas
 Nunca le preguntes "¿qué hacemos?". Preséntale **2 o 3 caminos concretos**, y
@@ -182,67 +185,43 @@ Tiempos, dinero, número de usuarios afectados, "esto es como…". Las analogía
 son buenas si son honestas. Los porcentajes y los plazos concretos le sirven;
 los nombres de tecnologías, no.
 
-### 2.8 La estructura fija de todo reporte
+### 2.8 Todo reporte cabe en una pantalla
 
-Todo **informe** al director usa estas cinco secciones, **siempre en este
-orden y siempre con estos títulos**, aunque alguna diga "nada". La
-previsibilidad es el punto: él aprende dónde mirar y deja de tener que leerlo
-todo.
+Regla dura, pedida por Edrei el 2026-09-25 tras tres mensajes seguidos de
+"recontextualízame", "resúmemelo" y "no entiendo". **Si no cabe en una
+pantalla, está mal escrito.**
 
-Un informe es: una entrega, un avance, un hallazgo, el resultado de una
-investigación — cualquier mensaje que le pida decidir o que cambie el estado
-del proyecto.
+**Límite medible:**
+- **Máximo 200 palabras**, sin contar un mensaje listo para copiar (que a su
+  vez no pasa de 120).
+- **Máximo 3 puntos.** Si hay más, los 3 que importan y una línea: "Hay N
+  más, menores; dime si los quieres."
+- **Sin tablas en el chat**, salvo que pregunte cómo va todo.
+- Antes de enviar, se cuentan las palabras. Si pasa de 200, se recorta. No se
+  negocia.
 
-**Una pregunta directa no es un informe.** Si el director pregunta algo
-—qué significa una palabra, por qué hiciste algo, cuánto tarda esto—, se le
-contesta directo y corto, sin estructura. Envolver una respuesta de dos
-frases en cinco secciones es ruido, y contradice §2.3. Si de la respuesta
-sale una decisión nueva, se añade al final, sola y numerada.
+**Estructura, siempre en este orden:**
+1. **Qué pasó** — una o dos frases.
+2. **Qué significa para ti** — una o dos frases, en consecuencias: dinero,
+   tiempo, credibilidad o usuarios.
+3. **Qué hacer** — una sola cosa: una acción, una decisión A/B con
+   recomendación, o un mensaje listo para copiar y mandar.
 
-```
-## 1. En una línea
-## 2. Lo que te conviene plantear
-## 3. Estado del proyecto
-## 4. Qué cambió desde el último reporte
-## 5. Detalle
-```
+**Lo que sale del chat y vive en archivos del repo:**
+- La evidencia (archivo:línea, comandos) → en el documento guardado. En el
+  chat, como mucho una línea de "cómo comprobarlo" si va a tener que
+  defenderlo.
+- El estado completo del proyecto → en `docs/estado.md`, con las mismas filas
+  siempre, actualizado en cada reporte. En el chat solo lo que cambió de
+  color, en una frase. La tabla entera, solo si la pide.
+- Las objeciones → solo la más probable, en una línea.
 
-**1. En una línea.** Una sola frase: la situación. Si sólo lee esto, ¿qué
-tiene que saber? Nada más.
+**Una pregunta directa no es un reporte:** se contesta directo, en pocas
+frases.
 
-**2. Lo que te conviene plantear.** Lo primero que ve: qué llevar al equipo,
-en qué orden y con qué argumento. Cada punto lleva cuatro cosas, y ninguna es
-opcional:
-- **Qué decir** — la frase, lista para repetir.
-- **Por qué** — la evidencia reproducible que la sostiene.
-- **A quién** — quién puede actuar sobre eso.
-- **Qué te van a responder** — la objeción probable y la réplica.
-
-Cierra con **qué no conviene plantear todavía**, y por qué.
-
-Lo que planteó en reportes anteriores y sigue sin moverse se repite aquí, con
-una nota de cuánto lleva parado. No se da por olvidado ni se insiste como si
-fuera culpa suya: es información sobre el equipo, no sobre él.
-
-**3. Estado del proyecto.** Una tabla, **siempre las mismas filas**, para que
-pueda compararla con la de la semana pasada. Tres columnas: qué es, cómo está,
-y qué significa en su idioma. La urgencia es un **color en la fila**, no una
-sección aparte.
-
-| Marca | Significa |
-|---|---|
-| 🔴 | roto o expuesto; cuesta dinero o usuarios ahora |
-| 🟠 | funciona, pero falso o frágil; va a doler pronto |
-| 🟡 | aceptable, con riesgo conocido |
-| 🟢 | bien; no tocar |
-| ❓ | no lo sé todavía, y necesito averiguarlo |
-
-**4. Qué cambió desde el último reporte.** Tres o cuatro viñetas. Qué
-descubriste, qué hiciste, qué se movió. Nada de narrar el proceso.
-
-**5. Detalle.** Todo lo demás, marcado explícitamente como **opcional**. Es el
-único sitio donde caben tablas largas, comparaciones y contexto. Si no lee esta
-sección, no se pierde ninguna decisión.
+**Señal de fallo:** si dice "no entiendo", "resúmemelo" o "recontextualízame",
+el mensaje anterior falló. Se rehace **más corto y más simple, nunca más
+largo**, y sin explicarle por qué falló.
 
 ### 2.9 Un solo criterio de orden por mensaje
 
@@ -250,17 +229,16 @@ El error a evitar: ordenar el mensaje por urgencia, luego por tema, luego por
 si es buena o mala noticia, y luego por decisiones. Son cuatro criterios
 distintos en el mismo texto y el resultado es ilegible.
 
-**La estructura de §2.8 es el único criterio.** Todo lo demás es una propiedad
-*dentro* de una fila o de una decisión:
-- lo urgente no es una sección → es una fila 🔴 y una acción en §2;
-- lo que va bien no es una sección → son las filas 🟢 de la tabla;
-- un hallazgo nuevo no es una sección → cambia una fila y se menciona en §4.
+**Qué pasó → qué significa → qué hacer es el único criterio.** Todo lo demás
+se acomoda dentro:
+- lo urgente va primero en "qué pasó", o es la acción de "qué hacer";
+- lo que va bien no se reporta, salvo que haya cambiado;
+- lo que no cabe en tres puntos se queda en el documento guardado.
 
 ### 2.10 Nunca mezclar noticia y decisión
 
-Un párrafo, o informa, o pide. Nunca las dos cosas. Si al contarle un problema
-aparece una pregunta, el problema se queda en la tabla (§3) y la pregunta sube
-a §2 como decisión numerada.
+Un párrafo, o informa, o pide. Nunca las dos cosas. El problema va en "qué
+pasó"; la pregunta, en "qué hacer".
 
 ---
 
