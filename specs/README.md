@@ -90,11 +90,11 @@ el director decide.
 | # | Spec | Hallazgo | Severidad | Estado |
 |---|---|---|---|---|
 | 0001 | Proteger las Edge Functions | H-01 | 🔴 crítico | borrador |
-| 0002 | Reparar el build de `main` | H-03 | 🔴 crítico | pendiente de redactar |
+| 0002 | Reparar el build de `main` | H-03 | — | **resuelta por el equipo** (`cbddb45`) |
 | 0003 | Fallback SPA en Netlify (404 al recargar) | H-04 | 🟠 alto | pendiente de redactar |
 | 0004 | Versionar el esquema de la BD | H-02 | 🔴 crítico | pendiente de redactar |
 | 0005 | CI en GitHub Actions | H-05 | 🟠 alto | pendiente de redactar |
-| 0006 | Evaluación real de la entrevista | H-06 | 🟠 alto | pendiente de redactar |
+| 0006 | Prompt de evaluación de la entrevista | H-06 | 🟠 alto | **borrador** — [`0006-prompt-de-evaluacion.md`](0006-prompt-de-evaluacion.md) |
 | 0007 | Generación de preguntas con IA | H-06 | 🟠 alto | pendiente de redactar |
 | 0008 | Limpiar código muerto y lint | H-07, H-08 | 🟡 medio | pendiente de redactar |
 | 0009 | README y onboarding de colaboradores | H-11 | 🟡 medio | pendiente de redactar |
@@ -177,13 +177,11 @@ Las pantallas públicas están verificadas y correctas. El resto exige sesión.
 
 ## Preguntas de hecho (no son decisiones)
 
-**P1 — ¿Existe el buscador de empleos?**
-La tarjeta "Scrapper" del tablero describe un buscador de empleos en
-funcionamiento (perfiles guardados, `preScore`/`matchScore`, proveedor
-Adzuna). Ese código **no existe** en `TheIns07/entrevist-ia`: el repo tiene una
-sola rama y ninguna referencia a Adzuna, Jooble ni `job_search`.
-Si vive en otro repositorio, hay que auditarlo: usa las mismas claves
-filtradas en H-00.
+**P1 — ¿Existe el buscador de empleos?** ✅ **Resuelta (2026-09-25).**
+Llegó al repo en `9db97cd` ("interview jobs scrapper in dashboard"): función
+`recommend-jobs`, proveedor Adzuna y puntuación en `_shared/jobs/`. Usa Groq y
+las llaves de Adzuna, y también acepta llamadas sin sesión (`config.toml:441`).
+Amplía la superficie de H-00 y H-01.
 
 ---
 

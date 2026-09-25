@@ -87,6 +87,10 @@ Prioridad: **por encima de todo lo demás de este documento.**
 
 ### 🔴 H-01 — Edge Functions públicas sin autenticación (crítico)
 
+> **Actualización 2026-09-25:** ahora son **tres**. `recommend-jobs` (commit
+> `9db97cd`) también tiene `verify_jwt = false` (`config.toml:441`) y usa Groq
+> y las llaves de Adzuna.
+
 `supabase/config.toml` declara `verify_jwt = false` para **ambas** funciones, y
 cada una responde con `Access-Control-Allow-Origin: *`.
 
@@ -136,7 +140,18 @@ migración commiteada.
 
 ---
 
-### 🔴 H-03 — `npm run build` falla en `main` (crítico)
+### ✅ H-03 — `npm run build` falla en `main` — RESUELTO
+
+> **Actualización 2026-09-25:** el equipo lo resolvió en `cbddb45`; `npm run
+> build` termina en exit 0 y la web publicada contiene el código más reciente
+> (incluye `recommend-jobs`).
+>
+> **Corrección de esta auditoría:** la afirmación de abajo de que "producción
+> sirve un commit anterior" se apoyaba en comparar el nombre del archivo
+> publicado con el de un build local. Esa prueba **no es válida**: el nombre
+> cambia con las variables de entorno inyectadas al construir. Lo verificado
+> fue solo que `tsc -b` fallaba; que Netlify sirviera una versión vieja no
+> quedó demostrado.
 
 ```
 $ npm run build   # tsc -b && vite build

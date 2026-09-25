@@ -440,10 +440,13 @@ Nunca asumas que ocultar una ruta protege un dato.
    copiar el patrón.
 5. **Sin SPA fallback.** No hay `netlify.toml` ni `public/_redirects`, así que
    recargar cualquier ruta que no sea `/` devuelve 404 en producción.
-6. **Edge Functions abiertas.** `verify_jwt = false` + CORS `*`. Cualquiera en
-   internet puede gastar la cuota de Groq. Ver H-01.
-7. **`npm run build` está roto en `main`** (2 errores TS6133 en
-   `OnboardingPage.tsx`).
+6. **Edge Functions abiertas.** Las tres (`analyze-resume`, `transcribe-audio`
+   y `recommend-jobs`, desde `9db97cd`) tienen `verify_jwt = false` + CORS `*`.
+   Cualquiera en internet puede gastar la cuota de Groq y de Adzuna. Ver H-01.
+7. **Tope real de respuesta: 1200 caracteres** (`InterviewPage.tsx:1119-1121`).
+   El `maxLength: 500` de `mocks/mockInterview.ts` no lo usa la pantalla.
+8. ~~`npm run build` roto en `main`~~ — resuelto por el equipo en `cbddb45`
+   (verificado el 2026-09-25).
 
 ---
 

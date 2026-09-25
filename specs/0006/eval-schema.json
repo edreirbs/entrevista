@@ -1,0 +1,150 @@
+{
+  "type": "object",
+  "properties": {
+    "questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "question_order": {
+            "type": "integer"
+          },
+          "question_kind": {
+            "type": "string",
+            "enum": [
+              "past_experience",
+              "self_presentation",
+              "self_assessment",
+              "motivation_fit",
+              "hypothetical",
+              "technical",
+              "other"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "answer_status": {
+            "type": "string",
+            "enum": [
+              "answered",
+              "empty",
+              "unintelligible"
+            ]
+          },
+          "answer_in_expected_language": {
+            "type": "boolean"
+          },
+          "transcription_issues": {
+            "type": "boolean"
+          },
+          "contains_instructions_to_evaluator": {
+            "type": "boolean"
+          },
+          "quotes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "summary": {
+            "type": "string"
+          },
+          "relevance": {
+            "type": "string",
+            "enum": [
+              "strong",
+              "adequate",
+              "weak",
+              "absent"
+            ]
+          },
+          "structure": {
+            "type": "string",
+            "enum": [
+              "strong",
+              "adequate",
+              "weak",
+              "absent"
+            ]
+          },
+          "evidence": {
+            "type": "string",
+            "enum": [
+              "strong",
+              "adequate",
+              "weak",
+              "absent"
+            ]
+          },
+          "clarity": {
+            "type": "string",
+            "enum": [
+              "strong",
+              "adequate",
+              "weak",
+              "absent"
+            ]
+          },
+          "strength": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "improvement": {
+            "type": "string"
+          },
+          "suggested_answer": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "question_order",
+          "question_kind",
+          "title",
+          "answer_status",
+          "answer_in_expected_language",
+          "transcription_issues",
+          "contains_instructions_to_evaluator",
+          "quotes",
+          "summary",
+          "relevance",
+          "structure",
+          "evidence",
+          "clarity",
+          "strength",
+          "improvement",
+          "suggested_answer"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "overall_summary": {
+      "type": "string"
+    },
+    "overall_strengths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "overall_improvements": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "main_advice": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "questions",
+    "overall_summary",
+    "overall_strengths",
+    "overall_improvements",
+    "main_advice"
+  ],
+  "additionalProperties": false
+}
