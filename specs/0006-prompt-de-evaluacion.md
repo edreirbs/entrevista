@@ -466,6 +466,7 @@ Verificables por quien implemente, sin nosotros delante.
 - Conectar el panel a `getDashboardData`, o separar las medias por nivel de experiencia.
 - Proteger las otras tres funciones y rotar la llave de Groq (spec 0001).
 - El rediseño de la pantalla de resultados de Christopher. Esta spec solo exige los cambios mínimos de la sección 6.
+- Usar la vacante como contexto de la evaluación (pantalla 61 del rediseño: "pegar vacante"). Es una extensión natural —el mensaje al modelo admitiría un campo con la descripción del puesto—, pero solo tiene sentido si el equipo adopta esa pantalla.
 
 ## Restricciones
 
@@ -603,7 +604,8 @@ export const q: Same<QuestionResult, RepoQ> = true;
 
 1. **La llave de Groq del proyecto está publicada.** Hay que rotarla antes de poner esto en marcha. Mientras no se cambie, cualquiera puede gastar en esa cuenta, y los números de costo de esta spec no significan nada.
 2. **Las tres funciones existentes siguen sin pedir sesión** (`config.toml:419`, `:430` y `:441`). Esta spec solo exige que la nueva la pida. Cerrar las otras es la spec 0001.
-3. **Dependencia del rediseño de resultados de Christopher.** El 2026-09-25 intentamos abrir el archivo de Figma compartido y la herramienta respondió "Looks like you don't have edit access to this file", así que el diseño **no se revisó**. Si su pantalla simplificada quita el detalle por pregunta o añade barras por criterio, cambia solo el mapeo de la sección 6, no el prompt ni el esquema. `result_payload` ya trae los 4 niveles, las citas y las medias por criterio.
+3. **Dependencia del rediseño de resultados de Christopher.** Revisado el 2026-09-25 (lectura desde el navegador de Edrei, sin editar; contraste con el código en `cbddb45`: ver `docs/revision-figma-2026-09-25.md`). **La pantalla 60 coincide con la forma de salida de esta spec:** resumen, 3 fortalezas, 3 mejoras, consejo principal y detalle por pregunta; sus botones "Practicar de nuevo" y "Ver mi Dashboard" ya existen (`ResultsPage.tsx:707`, `:206`). Le faltan dos cosas que esta spec entrega: la nota global 0-10 con su etiqueta y la vista de una pregunta abierta (nota, resumen, fortaleza, mejora, respuesta sugerida). Si el diseño final cambia la presentación, solo cambia el mapeo de la sección 6, no el prompt ni el esquema. `result_payload` ya trae los 4 niveles, las citas y las medias por criterio.
+   - La pantalla 68 del mismo rediseño propone de 5 a 20 preguntas. Esta spec acepta como máximo 10 (`0006/eval-aggregate.ts:10`, `MAX_ITEMS`). Si se adopta, hay que subir el tope y volver a medir costo y tiempo de espera de la llamada única.
 4. **Efecto halo al juzgar todo en una llamada:** una respuesta muy buena o muy mala puede arrastrar a las demás. Lo detecta la prueba de contaminación. Si falla, el plan B es una llamada por pregunta (≈ 0,01 US$ por entrevista).
 5. **Esquema no probado contra Groq.** Solo usa construcciones documentadas, pero hay un informe público (agosto de 2026) de errores 400 intermitentes con `strict:true`. Lo cubre el reintento y el error visible.
 6. **Transcripción forzada al idioma de la sesión:** `transcribe-audio` recibe `language` (`index.ts:132-172`). Si alguien dicta en español en una entrevista configurada en inglés, la transcripción puede salir deformada. No verificado.
@@ -647,6 +649,7 @@ export const q: Same<QuestionResult, RepoQ> = true;
 
 ## Historial
 
+- 2026-09-25 — riesgo 3 actualizado tras revisar el rediseño de resultados: la pantalla 60 coincide con la salida; se anotan el tope de 10 preguntas frente a la propuesta de 5 a 20 y la vacante como extensión futura.
 - 2026-09-25 — código de agregación, pruebas y esquema movidos a `specs/0006/`; validaciones repetidas de forma independiente: esquema OK, tipos OK contra el repo, 14 pruebas OK.
 
 - 2026-09-25 — creada (borrador). Incluye las correcciones de la revisión adversarial: respuestas ininteligibles, evidencia según el tipo de pregunta, idiomas aceptados, permisos de escritura, topes de entrada, 413 y pantalla "Sin evaluar".
